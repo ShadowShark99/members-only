@@ -3,6 +3,10 @@
 const path = require("node:path");
 const pool = require("./db/pool");
 const express = require("express");
+//routers
+const indexRouter = require("./routers/indexRouter");
+const signInRouter = require("./routers/signInRouter");
+
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
@@ -45,7 +49,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-
+//app logic
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -61,11 +65,10 @@ app.use((req, res, next) => {
   next();
 });
 
+//routes
 
-app.get("/", (req, res) => {
-  res.render("index", { user: req.user });
-});
-app.get("/sign-up", (req, res) => res.render("sign-up-form"));
+app.use("/", indexRouter);
+app.use("/signin", signInRouter);
 
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {
