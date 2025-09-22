@@ -5,7 +5,7 @@ const pool = require("./db/pool");
 const express = require("express");
 //routers
 const indexRouter = require("./routers/indexRouter");
-const signInRouter = require("./routers/signInRouter");
+const signUpRouter = require("./routers/signUpRouter");
 
 const session = require("express-session");
 const passport = require("passport");
@@ -68,7 +68,7 @@ app.use((req, res, next) => {
 //routes
 
 app.use("/", indexRouter);
-app.use("/signin", signInRouter);
+app.use("/signup", signUpRouter);
 
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {
