@@ -17,15 +17,19 @@ const bcrypt = require("bcryptjs");
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const { rows } = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+      const { rows } = await pool.query("SELECT * FROM club_users WHERE username = $1", [username]);
       const user = rows[0];
+      console.log(`username: ${username}`);
+      console.log(`user: ${user.username}`);
 
       if (!user) {
+        console.log("poop user");
         return done(null, false, { message: "Incorrect username" });
       }
 
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
+        console.log("poop password");
         return done(null, false, { message: "Incorrect password" });
       }
       return done(null, user);
@@ -35,13 +39,15 @@ passport.use(
   })
 );
 
+//replace user.id with username
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.username);
 });
 
-passport.deserializeUser(async (id, done) => {
+//replace id with username
+passport.deserializeUser(async (username, done) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    const { rows } = await pool.query("SELECT * FROM club_users WHERE username = $1", [username]);
     const user = rows[0];
 
     done(null, user);
@@ -72,6 +78,7 @@ app.use("/", indexRouter);
 app.use("/signup", signUpRouter);
 app.use("/door", doorRouter);
 
+//log out function by passport to terminate user
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {
     if (err) {
@@ -82,18 +89,18 @@ app.get("/log-out", (req, res, next) => {
 });
 
 
-app.post("/sign-up", async (req, res, next) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
-      req.body.username,
-      hashedPassword,
-    ]);
-    res.redirect("/");
-  } catch(err) {
-    return next(err);
-  }
-});
+// app.post("/sign-up", async (req, res, next) => {
+//   try {
+//     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+//     await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
+//       req.body.username,
+//       hashedPassword,
+//     ]);
+//     res.redirect("/");
+//   } catch(err) {
+//     return next(err);
+//   }
+// });
 
 app.post(
   "/log-in",
@@ -102,8 +109,6 @@ app.post(
     failureRedirect: "/"
   })
 );
-
-
 
 app.listen(3000, (error) => {
   if (error) {

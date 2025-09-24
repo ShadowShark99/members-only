@@ -6,11 +6,11 @@ async function printUsers(){
 }
 
 async function newUser(username, email, password) {
-  await pool.query("INSERT INTO club_users (email, username, password) VALUES ($1, $2, $3)", [email, password, username]);
+  await pool.query("INSERT INTO club_users (email, username, password) VALUES ($1, $2, $3)", [email, username, password]);
 }
 
 async function newClubUser(username, email, password){
-  await pool.query("INSERT INTO club_users (email, username, password, member) VALUES ($1, $2, $3, TRUE)", [email, password, username]);
+  await pool.query("INSERT INTO club_users (email, username, password, member) VALUES ($1, $2, $3, TRUE)", [email, username, password]);
 };
 
 module.exports={

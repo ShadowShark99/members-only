@@ -6,9 +6,16 @@
   <title>Club</title>
 </head>
 <body>
+  <% if (locals.user) {%>
+    <h1>WELCOME BACK <%= user.username %></h1>
+    <a href="/log-out">LOG OUT</a>
+  <% } else { %>
   <h1>Welcome to the Club</h1>
+  <%- include("partials/log-in.ejs") %>
+
   <a href="/signup">Sign Up for Our Club!</a>
   <br>
   <a href="/door">Secret Club Entrance...</a>
+  <% } %>
 </body>
 </html>

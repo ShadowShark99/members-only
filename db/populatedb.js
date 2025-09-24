@@ -16,9 +16,9 @@ const SQL=`
     time DATE NOT NULL DEFAULT CURRENT_DATE
   );
 
-  INSERT INTO club_users (email, username, password)
+  INSERT INTO club_users (email, username, password, member)
   VALUES
-    ('admin', 'admin', '67');
+    ('admin', 'admin', '67', TRUE);
 
   INSERT INTO club_messages (username, title, message)
   VALUES
