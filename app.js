@@ -6,6 +6,7 @@ const express = require("express");
 //routers
 const indexRouter = require("./routers/indexRouter");
 const signUpRouter = require("./routers/signUpRouter");
+const doorRouter = require("./routers/doorRouter");
 
 const session = require("express-session");
 const passport = require("passport");
@@ -69,6 +70,7 @@ app.use((req, res, next) => {
 
 app.use("/", indexRouter);
 app.use("/signup", signUpRouter);
+app.use("/door", doorRouter);
 
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {

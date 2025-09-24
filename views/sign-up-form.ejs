@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sign Up</title>
+  <title><%= title %></title>
 </head>
 <body>
   <h1><%= title %></h1>
@@ -15,6 +15,9 @@
     <label for="password">Password</label>
     <input id="password" name="password" type="password" />
     <button type="submit">Sign Up</button>
+    <% if (locals.clubTag) {%>
+    <input type="hidden" name="clubPassword" value="<%= clubTag %>"/>
+    <% } %>
   </form>
   <a href="/">Just kidding I hate being in Club!</a>
 </body>
