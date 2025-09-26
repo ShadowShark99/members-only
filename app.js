@@ -1,8 +1,8 @@
 /////// app.js
-
 const path = require("node:path");
 const pool = require("./db/pool");
 const express = require("express");
+
 //routers
 const indexRouter = require("./routers/indexRouter");
 const signUpRouter = require("./routers/signUpRouter");
@@ -10,51 +10,10 @@ const doorRouter = require("./routers/doorRouter");
 
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require("bcryptjs");
+// const LocalStrategy = require('passport-local').Strategy;
+// const bcrypt = require("bcryptjs");
+require("./passportInit")();
 
-//Passport function
-passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      const { rows } = await pool.query("SELECT * FROM club_users WHERE username = $1", [username]);
-      const user = rows[0];
-      console.log(`username: ${username}`);
-      console.log(`user: ${user.username}`);
-
-      if (!user) {
-        console.log("poop user");
-        return done(null, false, { message: "Incorrect username" });
-      }
-
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) {
-        console.log("poop password");
-        return done(null, false, { message: "Incorrect password" });
-      }
-      return done(null, user);
-    } catch(err) {
-      return done(err);
-    }
-  })
-);
-
-//replace user.id with username
-passport.serializeUser((user, done) => {
-  done(null, user.username);
-});
-
-//replace id with username
-passport.deserializeUser(async (username, done) => {
-  try {
-    const { rows } = await pool.query("SELECT * FROM club_users WHERE username = $1", [username]);
-    const user = rows[0];
-
-    done(null, user);
-  } catch(err) {
-    done(err);
-  }
-});
 
 //app logic
 
@@ -73,28 +32,9 @@ app.use((req, res, next) => {
 });
 
 //routes
-
 app.use("/", indexRouter);
 app.use("/signup", signUpRouter);
 app.use("/door", doorRouter);
-
-
-
-
-// app.post("/sign-up", async (req, res, next) => {
-//   try {
-//     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-//     await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
-//       req.body.username,
-//       hashedPassword,
-//     ]);
-//     res.redirect("/");
-//   } catch(err) {
-//     return next(err);
-//   }
-// });
-
-
 
 app.listen(3000, (error) => {
   if (error) {

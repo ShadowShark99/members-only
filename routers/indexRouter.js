@@ -1,26 +1,15 @@
 const {Router} = require("express");
 const indexController = require("../controllers/indexController");
+const passportController = require("../controllers/passportController");
 const indexRouter = Router();
-const passport = require("passport");
+
 
 indexRouter.get("/", indexController.getClub);
 
-//log out function by passport to terminate user
-indexRouter.get("/log-out", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
 
-indexRouter.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
-  })
-);
+
+//log out function by passport to terminate user
+indexRouter.get("/log-out", passportController.logout);
+indexRouter.post("/log-in", passportController.login);
 
 module.exports = indexRouter;
