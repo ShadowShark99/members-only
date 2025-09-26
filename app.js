@@ -7,6 +7,7 @@ const express = require("express");
 const indexRouter = require("./routers/indexRouter");
 const signUpRouter = require("./routers/signUpRouter");
 const doorRouter = require("./routers/doorRouter");
+const messageRouter = require("./routers/messageRouter");
 
 const session = require("express-session");
 const passport = require("passport");
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 app.use("/", indexRouter);
 app.use("/signup", signUpRouter);
 app.use("/door", doorRouter);
+app.use("/message", messageRouter);
 
 app.listen(3000, (error) => {
   if (error) {
