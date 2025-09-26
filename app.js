@@ -78,15 +78,7 @@ app.use("/", indexRouter);
 app.use("/signup", signUpRouter);
 app.use("/door", doorRouter);
 
-//log out function by passport to terminate user
-app.get("/log-out", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
+
 
 
 // app.post("/sign-up", async (req, res, next) => {
@@ -102,13 +94,7 @@ app.get("/log-out", (req, res, next) => {
 //   }
 // });
 
-app.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
-  })
-);
+
 
 app.listen(3000, (error) => {
   if (error) {
