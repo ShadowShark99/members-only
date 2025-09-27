@@ -1,12 +1,14 @@
 require('dotenv').config();
 const {Client} = require("pg");
 
+//NEED TO ADD NULL TYEP
 const SQL=`
   CREATE TABLE IF NOT EXISTS club_users(
     email VARCHAR (255),
     password VARCHAR (255), 
     username VARCHAR (255),
-    member BOOLEAN DEFAULT FALSE
+    member BOOLEAN DEFAULT FALSE,
+    admin BOOLEAN NULL
   );
 
   CREATE TABLE IF NOT EXISTS club_messages(
@@ -16,9 +18,9 @@ const SQL=`
     time DATE NOT NULL DEFAULT CURRENT_DATE
   );
 
-  INSERT INTO club_users (email, username, password, member)
+  INSERT INTO club_users (email, username, password, member, admin)
   VALUES
-    ('admin', 'admin', '67', TRUE);
+    ('admin', 'admin', '67', TRUE, TRUE);
 
   INSERT INTO club_messages (username, title, message)
   VALUES

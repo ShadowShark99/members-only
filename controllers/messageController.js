@@ -12,3 +12,9 @@ exports.postMessage = async (req, res) => {
   await db.newMessage(title, message, user);
   res.redirect("/");
 };
+
+exports.deleteMessage = async(req, res) => {
+    const{time} = req.body;
+    await db.removeMessage(time);
+    res.redirect("/");
+}

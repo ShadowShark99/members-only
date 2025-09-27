@@ -7,5 +7,11 @@
       <div><%= messages[i].username %></div>
       <div><%= messages[i].time %></div>
     <% } %>
+    <% if(admin) {%>
+      <form action="/message/delete" method="POST">
+        <input type="hidden" name="time" value="<%= messages[i].time %>">
+        <button type="submit">delete</button>
+      </form>
+    <% } %>
   </div>
 <% } %>
