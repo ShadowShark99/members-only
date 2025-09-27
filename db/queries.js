@@ -29,8 +29,8 @@ async function isClub(username){
   return rows[0].member;
 }
 
-async function removeMessage(time){
-  await pool.query("DELETE FROM club_messages WHERE time = $1", [time]);
+async function removeMessage(title, message){
+  await pool.query("DELETE FROM club_messages WHERE title = $1 AND message = $2", [title, message]);
 }
 
 module.exports={

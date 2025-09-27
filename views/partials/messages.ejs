@@ -9,7 +9,8 @@
     <% } %>
     <% if(admin) {%>
       <form action="/message/delete" method="POST">
-        <input type="hidden" name="time" value="<%= messages[i].time %>">
+        <input type="hidden" name="title" value="<%= messages[i].title %>">
+        <input type="hidden" name="message" value="<%= messages[i].message %>">
         <button type="submit">delete</button>
       </form>
     <% } %>
