@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
   <title>Club</title>
 </head>
 <body>
@@ -10,7 +11,7 @@
     <h1>WELCOME BACK <%= user.username %></h1>
     <a href="/message"> Create New Message</a>
     <a href="/log-out">LOG OUT</a>
-    
+    <%- include("partials/messages", {messages: messages, isClub: user.member}) %>
   <% } else { %>
   <h1>Welcome to the Club</h1>
   <%- include("partials/log-in.ejs") %>
@@ -18,6 +19,8 @@
   <a href="/signup">Sign Up for Our Club!</a>
   <br>
   <a href="/door">Secret Club Entrance...</a>
+  <%- include("partials/messages", {messages: messages, isClub: false}) %>
   <% } %>
+
 </body>
 </html>

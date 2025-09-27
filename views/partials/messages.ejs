@@ -1,3 +1,11 @@
-<%= for(let i = 0; i < messages.length; i++) { %>
-  <div class="message"></div>
+<h1>Messages</h1>
+<% for(let i = 0; i < messages.length; i++) { %>
+  <div class="message">
+    <h4><%= messages[i].title %></h4>
+    <div><%= messages[i].message %></div>
+    <% if(isClub) {%>
+      <div><%= messages[i].username %></div>
+      <div><%= messages[i].time %></div>
+    <% } %>
+  </div>
 <% } %>

@@ -20,7 +20,10 @@ require("./passportInit")();
 const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+//css styles
 app.use(express.static('public'));
+
 //session info
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(passport.session());

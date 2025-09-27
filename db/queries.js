@@ -22,10 +22,18 @@ async function getMessages(){
   return rows;
 }
 
+async function isClub(username){
+  const {rows} = await pool.query("SELECT * FROM club_users WHERE username = $1", [username]);
+  if(!rows[0])
+    return false;
+  return rows[0].member;
+}
+
 module.exports={
   newClubUser,
   newUser,
   printUsers,
   newMessage,
   getMessages,
+  isClub
 }
