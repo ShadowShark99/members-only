@@ -14,7 +14,7 @@ exports.postMessage = async (req, res) => {
 };
 
 exports.deleteMessage = async(req, res) => {
-    const{title, message} = req.body;
-    await db.removeMessage(title, message);
+    const{id} = req.body;
+    await db.removeMessage(id);
     res.redirect("/");
 }

@@ -12,6 +12,7 @@ const SQL=`
   );
 
   CREATE TABLE IF NOT EXISTS club_messages(
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     username VARCHAR (255),
     title VARCHAR (255), 
     message VARCHAR (255), 
