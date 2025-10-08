@@ -15,10 +15,12 @@
   <% } else { %>
   <h1>Welcome to the Club</h1>
   <%- include("partials/log-in.ejs") %>
+  
 
-  <a href="/signup">Sign Up for Our Club!</a>
-  <br>
-  <a href="/door">Secret Club Entrance...</a>
+  <a class="club-buttons" href="/signup">Sign Up for Our Club!</a>
+
+  
+  <a class="club-buttons" href="/door">Secret Club Entrance...</a>
   <%- include("partials/messages", {messages: messages, isClub: false, admin: false}) %>
   <% } %>
 

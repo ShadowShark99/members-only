@@ -2,3 +2,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+.club-buttons{
+  text-decoration: none;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.club-buttons:hover{
+  background-color: aliceblue;
+}

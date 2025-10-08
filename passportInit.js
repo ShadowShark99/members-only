@@ -11,23 +11,18 @@ module.exports = () => {
     try {
       const { rows } = await pool.query("SELECT * FROM club_users WHERE username = $1", [username]);
       const user = rows[0];
-      console.log(`username: ${username}`);
-      console.log(`user: ${user.username}`);
 
       if (!user) {
-        console.log("poop user");
         return done(null, false, { message: "Incorrect username" });
       }
 
       //admin function
       if(user.username == "admin" && password == user.password){
-        console.log("return admin login");
         return done(null, user);
       }
 
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
-        console.log("poop password");
         return done(null, false, { message: "Incorrect password" });
       }
       return done(null, user);
