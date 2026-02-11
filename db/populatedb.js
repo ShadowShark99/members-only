@@ -31,10 +31,7 @@ const SQL=`
 async function main (){
   console.log("seeding...");
   const client = new Client({
-    host: "localhost", // or wherever the db is hosted
-    user: "kaden",
-    database: "top_users",
-    port: 5432 // The default port
+    connectionString: process.env.DB_URL,
   });
   await client.connect();
   await client.query(SQL);
