@@ -6,3 +6,7 @@ exports.getClub = async (req,res) => {
   //console.log(messages);
   res.render("index", {user: req.user, messages});
 };
+
+exports.tryAgain = async(req, res) => {
+  res.render("try-again-login");
+}

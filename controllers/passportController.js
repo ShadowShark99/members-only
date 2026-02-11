@@ -11,5 +11,5 @@ exports.logout = (req, res, next) => {
 
 exports.login = passport.authenticate("local", {
   successRedirect: "/",
-  failureRedirect: "/"
+  failureRedirect: "/try-again"
 });
